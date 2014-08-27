@@ -4,7 +4,7 @@
 'use strict';
 var template = require('ejs'),
   tpl = {
-    main: __inline('index.tpl')
+    main: __inline('test1.tpl')
   },
 
   page = {},
@@ -25,8 +25,16 @@ page.hide = function () {
 };
 
 page.load = function () {
-  $root && $root.remove();
-  $root = $(template.render(tpl.main)).appendTo('body');
+  var Person = ripple(template.render(tpl.main)).attr('name',{
+    required:true,
+    type:'string'
+  });
+  var person = new Person({
+    name:'tom'
+  });
+ // $root && $root.remove();
+  person.appendTo(document.body);
+  person.name = "jack";
 };
 
 page.unload = function () {
